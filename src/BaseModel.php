@@ -142,7 +142,7 @@ abstract class BaseModel implements ModelInterface
             $wpdb->update(static::get_table(), $props, array(static::get_primary_key() => $this->{static::get_primary_key()}));
         }
 
-        return $this->id;
+        return $this->ID;
     }
 
     /**
@@ -171,8 +171,8 @@ abstract class BaseModel implements ModelInterface
     /**
      * Find a specific model by a given property value.
      *
-     * @param  string $property
-     * @param  string $value
+     * @param  string     $property
+     * @param  string     $value
      * @return false|self
      */
     public static function find_one_by($property, $value)
@@ -195,7 +195,7 @@ abstract class BaseModel implements ModelInterface
     /**
      * Find a specific model by it's unique ID.
      *
-     * @param  integer $id
+     * @param  integer    $id
      * @return false|self
      */
     public static function find_one($id)
@@ -246,6 +246,7 @@ abstract class BaseModel implements ModelInterface
     public function get_table_prefix()
     {
         global $wpdb;
+
         return $wpdb->prefix;
     }
 }
