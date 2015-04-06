@@ -20,7 +20,7 @@ Examples
 #### Get 5 published pages, ordered by post title.
 
 ```php
-use WordPress\ORM\Model\Page;
+use WordPress\Orm\Model\Page;
 
 $pages = Page::query()
 	->limit(5)
@@ -33,7 +33,7 @@ $pages = Page::query()
 #### Find a  user by their login
 
 ```php
-use WordPress\ORM\Model\User;
+use WordPress\Orm\Model\User;
 
 $user = User::find_one_by('user_login', 'brandon');
 
@@ -45,7 +45,7 @@ print_r($user->to_array());
 #### Example of a more complex query
 
 ```php
-use WordPress\ORM\Model\Post;
+use WordPress\Orm\Model\Post;
 
 $posts = Post::query()
 	->limit(15)
@@ -60,7 +60,7 @@ $posts = Post::query()
 #### Updating a model
 
 ```php
-use WordPress\ORM\Model\Post;
+use WordPress\Orm\Model\Post;
 
 $post = Post::find_one(1204);
 $post->set_post_title('What an amazing post!');
@@ -145,7 +145,7 @@ Find a single model who's primary key is equal to the given ID.
 
 ##### Model::query()
 
-Return a new `WordPress\ORM\Query` object.
+Return a new `WordPress\Orm\Query` object.
 
 ##### Model::all()
 
@@ -186,7 +186,7 @@ Offset the results returned, used with pagination. Uses the SQL `OFFSET` clause.
 
 ##### $query->sort_by(string $property)
 
-Sort results by the specified property. Can also be a MySQL function such as `RAND()`.
+Sort results by the specified property
 
 ##### $query->order(string $order)
 
@@ -243,37 +243,6 @@ Limit results to items that match any of the property/value pairs given in the a
 ##### $query->where_all(array $where)
 
 Limit results to items that match all of the property/value pairs given in the array.
-
-Actions & Filters
------------------
-
-#### wporm_query($sql, $model_class)
-
-Manipulate the raw SQL query created by the Query class.
-
-```php
-add_filter('wporm_query', function($sql, $model_class) {
-	if ($model_class == 'WordPress\ORM\Model\Page') {
-		$sql = str_replace('wp_posts', 'wp2_posts', $sql);
-	}
-
-	return $sql;
-}, 10, 2);
-```
-
-#### wporm_count_query($sql, $model_class)
-
-Manipulate the raw SQL query created by the Query class (the row count variation).
-
-```php
-add_filter('wporm_count_query', function($sql, $model_class) {
-	if ($model_class == 'WordPress\ORM\Model\Page') {
-		$sql = str_replace('wp_posts', 'wp2_posts', $sql);
-	}
-
-	return $sql;
-}, 10, 2);
-```
 
 License
 -------
